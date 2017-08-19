@@ -29,8 +29,8 @@ Conditions are specifed as boolean expression. A Boolean expression is a logical
 ```
 token['Data Quality']['error'] <= runtime['max_error']
 (token['File']['output'] > runtime['count']) and (runtime['a'] > runtime['b'])
- (token['File']['output'] > runtime['count']) || (runtime['a'] > runtime['b'])
- token['File']['output'] < runtime['count'] && token['File']['error'] < 1
+(token['File']['output'] > runtime['count']) || (runtime['a'] > runtime['b'])
+token['File']['output'] < runtime['count'] && token['File']['error'] < 1
 ```
 
 * Checks if a `runtime` argument `value` is provided and it's not `null` and plugin `File` `error` count is less than 1. 
@@ -42,6 +42,14 @@ token['Data Quality']['error'] <= runtime['max_error']
 ```
  math:max(toDouble(token['File1']['output']), toDouble(token['File2']['output'])) > runtime[$variable]
 ```
+
+### Variables
+
+In the conditional expression, there are three types of `map` variables available to be used within an expression :
+
+* **Runtime Variables** (E.g. `runtime['<variable-name>']`) -- Is a map variable that contain values  ,
+* **Token Variables** (E.g. `token['<plugin-name>']['input'|'output'|'error']`) & 
+* **Global Variables** (E.g. `global['pipeline'|'namespace'|'logical_start_time'|'plugin']`)
 
 ### Operators
 
@@ -79,7 +87,7 @@ and
 not cond
 ```
 
-#### Bitwise `&`
+#### Boolean `&`
 
 The bitwise operator `&` is used as follows
 ```
@@ -90,13 +98,21 @@ and
 not cond
 ```
 
-### Variables
+#### Ternary conditional `?:`	
 
-In the conditional expression, there are three types of `map` variables available to be used within an expression :
+The ternary conditional operator `condition ? if_true : if_false` operator can be used as well as the abbreviation value `?:` `if_false` which returns the value if its evaluation is defined, non-null and non-false.The condition will evaluate to false when it refers to an undefined variable or null. e.g.
 
-* **Runtime Variables** (E.g. `runtime['<variable-name>']`) -- Is a map variable that contain values  ,
-* **Token Variables** (E.g. `token['<plugin-name>']['input'|'output'|'error']`) & 
-* **Global Variables** (E.g. `global['pipeline'|'namespace'|'logical_start_time'|'plugin']`)
+```
+val1 ? val1 : val2
+```
+and
+
+```
+val1 ?: val2 
+```
+
+Where `val1` and `val2` could be `true` or `false`.
+
 
 ### Macros
 
