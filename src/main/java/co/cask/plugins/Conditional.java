@@ -107,9 +107,7 @@ public final class Conditional extends Condition {
       throw new Exception(e.getMessage());
     }
 
-    ELContext elCtx = new ELContext();
     Set<List<String>> variables = el.variables();
-
     Arguments arguments = context.getArguments();
     Map<String, StageStatistics> statistics = context.getStageStatistics();
 
@@ -121,7 +119,7 @@ public final class Conditional extends Condition {
       if (type.contentEquals("runtime")) {
         if (!arguments.has(variable.get(1))) {
           throw new Exception(
-            String.format("Runtime does not contain argument '%s'", variable.get(1))
+            String.format("Condition includes a runtime argument '%s' that does not exist.", variable.get(1))
           );
         }
         runtime.put(Joiner.on(".").join(variable), arguments.get(variable.get(1)));
@@ -129,7 +127,7 @@ public final class Conditional extends Condition {
         String stage = variable.get(1);
         if (!statistics.containsKey(stage)) {
           throw new Exception(
-            String.format("Token includes plugin '%s' that doesn't exist.", stage)
+            String.format("Condition includes a token for plugin '%s' that doesn't exist.", stage)
           );
         }
         StageStatistics stageStatistics = statistics.get(stage);
@@ -145,13 +143,16 @@ public final class Conditional extends Condition {
         globals.put("plugin", context.getStageName());
       } else {
         throw new Exception(
-          String.format("Invalid variable '%s' specified.", type)
+          String.format("Invalid map variable '%s' specified. Valid map variables " +
+                          "'runtime', 'token' and 'global'", type)
         );
       }
     }
-    elCtx.add("runtime", runtime);
-    elCtx.add("token", tokens);
-    elCtx.add("global", globals);
+
+    ELContext elCtx = new ELContext()
+      .add("runtime", runtime)
+      .add("token", tokens)
+      .add("global", globals);
     ELResult result = el.execute(elCtx);
     return result.getBoolean();
   }
