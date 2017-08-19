@@ -10,30 +10,35 @@ Condition plugin specifies a boolean expression to be evaluated. During pipeline
 
 Conditions are specifed as boolean expression. A Boolean expression is a logical statement that is either TRUE or FALSE . Expressions can compare data of any type as long as both parts of the expression have the same basic data type or compatible data type. You can test data to see if it is equal to, greater than, or less than other data. Following are some of the example of an expression that can be specified. 
 
+* Checks if the `runtime` argument `filepath` contains `input`.
 ```
  runtime['filepath'] =~ ".*input_.*"
 ```
+
+* Checks two `runtime` arguments `a` and `b`.
 ```
  runtime['a'] > runtime['b']
 ```
+
+* Checks `output` record count of `File` plugin from `token` with `runtime` value `count`.
 ```
  token['File']['output'] > runtime['count']
-``` 
+```
+
+* Checks `error` record count of `Data Quality plugin` from `token` with `runtime` value `max_error`
 ```
 token['Data Quality']['error'] <= runtime['max_error']
-```
-```
 (token['File']['output'] > runtime['count']) and (runtime['a'] > runtime['b'])
-```
-```
  (token['File']['output'] > runtime['count']) || (runtime['a'] > runtime['b'])
-```
-```
  token['File']['output'] < runtime['count'] && token['File']['error'] < 1
 ```
+
+* Checks if a `runtime` argument `value` is provided and it's not `null` and plugin `File` `error` count is less than 1. 
 ```
- !isnull(runtime['value']) && runtime['count'] && token['File']['error'] < 1
+ !isnull(runtime['value']) && token['File']['error'] < 1
 ```
+
+* Takes the `max` of plugin `File1` `output` count and `File` `output` count and checks if it's greater than `runtime` argument that is specified as a macro. 
 ```
  math:max(toDouble(token['File1']['output']), toDouble(token['File2']['output'])) > runtime[$variable]
 ```
