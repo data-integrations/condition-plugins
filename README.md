@@ -56,102 +56,44 @@ In the conditional expression, there are three types of `map` variables availabl
 Following are the boolean operators that can be used within the boolean expression specifying the condition
 
 #### Boolean `and` or `&`
-The operator `&&` can be used as well as the word `and` to specify composing conditions, e.g.
-```
-cond1 and cond2
-```
-and
-```
-cond1 && cond2
-```
+The operator `&&` can be used as well as the word `and` to specify composing conditions, e.g. ```cond1 and cond2``` and ```cond1 && cond2```
 
 #### Boolean `or` or `||`
 
-The operator `||` can be used as well as the word `or` to specify composing conditions, e.g.
-```
-cond1 or cond2
-```
-and
-```
-cond1 || cond2
-```
+The operator `||` can be used as well as the word `or` to specify composing conditions, e.g. ```cond1 or cond2``` and ```cond1 || cond2```
 
 #### Boolean `not` or `!`
 
-The operator `!` can be used as well as the word `not` to specify composing conditions, e.g.
-```
-!cond
-```
-and
-```
-not cond
-```
+The operator `!` can be used as well as the word `not` to specify composing conditions, e.g. ```!cond``` and ```not cond```
 
 #### Boolean `&`
 
-The bitwise operator `&` is used as follows
-```
-!cond
-```
-and
-```
-not cond
-```
+The bitwise operator `&` is used as follows ```!cond``` and ```not cond```
 
 #### Ternary conditional `?:`	
 
 The ternary conditional operator `condition ? if_true : if_false` operator can be used as well as the abbreviation value `?:` `if_false` which returns the value if its evaluation is defined, non-null and non-false.The condition will evaluate to false when it refers to an undefined variable or null. e.g.
 
-```
-val1 ? val1 : val2
-```
-and
-
-```
-val1 ?: val2 
-```
+```val1 ? val1 : val2``` and ```val1 ?: val2 ```
 
 Where `val1` and `val2` could be `true` or `false`.
 
 #### Equality `==` or `eq`
 
-The usual `==` operator can be used as well as the abbreviation `eq`. For example
-```
-val1 == val2
-```
-and
-```
-val1 eq val2
-```
-
+The usual `==` operator can be used as well as the abbreviation `eq`. For example ```val1 == val2``` and ```val1 eq val2```
 `null` is only ever equal to null, that is if you compare `null` to any non-null value, the result is `false`.
 
 #### InEquality `!=` or `ne`
 
-The usual `!=` operator can be used as well as the abbreviation `ne`. For example
-```
-val1 != val2
-```
-and
-```
-val1 ne val2
-```
+The usual `!=` operator can be used as well as the abbreviation `ne`. For example```val1 != val2``` and ```val1 ne val2```
 
 #### Less Than `<` or `lt`
 
-The usual `<` operator can be used as well as the abbreviation `lt`. For example
-```val1 < val2```
-
-and
-
-```val1 lt val2```
+The usual `<` operator can be used as well as the abbreviation `lt`. For example ```val1 < val2``` and ```val1 lt val2```
 
 #### Less Than `<=` or `le`
 
-The usual `<=` operator can be used as well as the abbreviation `lt`. For example
-```val1 <= val2```
-and
-```val1 le val2```
+The usual `<=` operator can be used as well as the abbreviation `lt`. For example ```val1 <= val2``` and ```val1 le val2```
 
 ### Macros
 
