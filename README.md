@@ -66,6 +66,15 @@ Following are the boolean operators that can be used within the boolean expressi
 | **InEquality** `!=` or `ne` | The usual `!=` operator can be used as well as the abbreviation `ne`. For example```val1 != val2``` and ```val1 ne val2``` | 
 | **Less Than** `<` or `lt` | The usual `<` operator can be used as well as the abbreviation `lt`. For example ```val1 < val2``` and ```val1 lt val2``` |
 | **Less Than or Equal To** `<=` or `le` | The usual `<=` operator can be used as well as the abbreviation `lt`. For example ```val1 <= val2``` and ```val1 le val2``` |
+| **Greater Than** `>` or `gt` | The usual `>` operator can be used as well as the abbreviation `gt`. For example ```val1 > val2``` and ```val1 gt val2``` |
+| **Greater Than or Equal To** `>=` or `ge` | The usual `>=` operator can be used as well as the abbreviation `gt`. For example ```val1 >= val2``` and ```val1 ge val2``` |
+| **In or Match** `=~` | `=~` operator can be used to check that a string matches a regular expression. For example `"abcdef" =~ "abc.*` returns `true`. It also checks whether any collection, set or map (on keys) contains a value or not; in that case, it behaves as an "in" operator. Note that arrays and user classes exposing a public 'contains' method will allow their instances to behave as right-hand side operands of this operator. `"a" =~ ["a","b","c","d","e",f"]` returns `true` | 
+| **Not-In or Not-Match** `!~` | `!~` operator can be used to check that a string does not match a regular expression. For example `"abcdef" !~ "abc.*` returns `false`. It also checks whether any collection, set or map (on keys) does not contain a value; in that case, it behaves as "not in" operator. Note that arrays and user classes exposing a public 'contains' method will allow their instances to behave as right-hand side operands of this operator. `"a" !~ ["a","b","c","d","e",f"]` returns `true` |
+| **Starts With** `=^` | The `=^` operator is a short-hand for the 'startsWith' method. For example, `"abcdef" =^ "abc"` returns `true` |
+| **Not Starts With** `!^` | This is the negation of the 'starts with' operator. `a !^ "abc"` is equivalent to `!(a =^ "abc")` |
+| **Ends With** `=$` | The `=$` operator is a short-hand for the 'endsWith' method. For example, `"abcdef" =$ "def"` returns `true` | 
+| **Not Ends With** `!$` | This is the negation of the 'ends with' operator. `a !$ "abc"` is equivalent to `!(a =$ "abc")` |
+
 
 ### Macros
 
