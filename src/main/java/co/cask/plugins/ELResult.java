@@ -31,7 +31,7 @@ public final class ELResult {
   }
 
   public Boolean getBoolean() {
-    if(value instanceof Boolean) {
+    if (value instanceof Boolean) {
       return (Boolean) value;
     } else if (value instanceof String) {
       Boolean val = Boolean.parseBoolean((String) value);

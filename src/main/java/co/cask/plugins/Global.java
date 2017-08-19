@@ -118,7 +118,7 @@ public final class Global {
    * @return first non-null object.
    */
   public static Object coalesce(Object ... objects) {
-    for(Object object : objects) {
+    for (Object object : objects) {
       if (object != null) {
         return object;
       }

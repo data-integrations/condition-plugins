@@ -59,13 +59,13 @@ public final class EL {
           throw new ELException("Condition can only specify either 'token' or 'runtime' in expression.");
         }
         if (vars.get(0).equalsIgnoreCase("token")) {
-          if(vars.size() != 3) {
+          if (vars.size() != 3) {
             throw new ELException("Incorrect 'token' access, a token is represented as " +
                                     "token['<stage-name>']['input'|'output'|'error']");
           }
         }
         if (vars.get(0).equalsIgnoreCase("runtime")) {
-          if(vars.size() != 2) {
+          if (vars.size() != 2) {
             throw new ELException("Incorrect 'runtime' access, a runtime is represented as runtime['<field-name>']");
           }
         }

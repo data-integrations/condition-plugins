@@ -82,7 +82,7 @@ public final class Conditional extends Condition {
   @Override
   public void configurePipeline(PipelineConfigurer configurer) throws IllegalArgumentException {
     super.configurePipeline(configurer);
-    if(!config.containsMacro("expression")) {
+    if (!config.containsMacro("expression")) {
       try {
         el.compile(config.getExpression());
       } catch (ELException e) {
@@ -114,7 +114,7 @@ public final class Conditional extends Condition {
     Map<String, Object> runtime = new HashMap<>();
     Map<String, Map<String, Object>> tokens = new HashMap<>();
     Map<String, Object> globals = new HashMap<>();
-    for(List<String> variable : variables) {
+    for (List<String> variable : variables) {
       String type = variable.get(0);
       if (type.contentEquals("runtime")) {
         if (!arguments.has(variable.get(1))) {
