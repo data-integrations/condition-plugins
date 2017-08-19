@@ -113,6 +113,45 @@ val1 ?: val2
 
 Where `val1` and `val2` could be `true` or `false`.
 
+#### Equality `==` or `eq`
+
+The usual `==` operator can be used as well as the abbreviation `eq`. For example
+```
+val1 == val2
+```
+and
+```
+val1 eq val2
+```
+
+`null` is only ever equal to null, that is if you compare `null` to any non-null value, the result is `false`.
+
+#### InEquality `!=` or `ne`
+
+The usual `!=` operator can be used as well as the abbreviation `ne`. For example
+```
+val1 != val2
+```
+and
+```
+val1 ne val2
+```
+
+#### Less Than `<` or `lt`
+
+The usual `<` operator can be used as well as the abbreviation `lt`. For example
+```val1 < val2```
+
+and
+
+```val1 lt val2```
+
+#### Less Than `<=` or `le`
+
+The usual `<=` operator can be used as well as the abbreviation `lt`. For example
+```val1 <= val2```
+and
+```val1 le val2```
 
 ### Macros
 
