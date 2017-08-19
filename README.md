@@ -10,8 +10,6 @@ Condition plugin specifies a boolean expression to be evaluated. During pipeline
 
 Conditions are specifed as boolean expression. A Boolean expression is a logical statement that is either TRUE or FALSE . Expressions can compare data of any type as long as both parts of the expression have the same basic data type or compatible data type. You can test data to see if it is equal to, greater than, or less than other data. Following are some of the example of an expression that can be specified. 
 
-The syntactically Perl inspired =~ operator can be used to check that a string matches a regular expression (expressed either a Java String or a java.util.regex.Pattern). For example "abcdef" =~ "abc.* returns true. It also checks whether any collection, set or map (on keys) contains a value or not; in that case, it behaves as an "in" operator. Note that arrays and user classes exposing a public 'contains' method will allow their instances to behave as right-hand side operands of this operator. "a" =~ ["a","b","c","d","e",f"] returns true.
-
 ```
  runtime['filepath'] =~ ".*input_.*"
  runtime['a'] > runtime['b']
@@ -22,7 +20,19 @@ The syntactically Perl inspired =~ operator can be used to check that a string m
  token['File']['output'] < runtime['count'] && token['File']['error'] < 1
  math:max(toDouble(token['File1']['output']), toDouble(token['File2']['output'])) > runtime[$variable]
 ```
+
 ### Operators
+
+Following are the boolean operators that can be used within the boolean expression specifying the condition
+
+#### Boolean `and`, `&`
+The usual `&&` operator can be used as well as the word and, e.g.
+```
+cond1 and cond2
+and
+cond1 && cond2
+```
+are equivalent
 
 ### Variables
 
