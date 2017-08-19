@@ -16,6 +16,7 @@
 
 package co.cask.plugins;
 
+import co.cask.cdap.api.annotation.Macro;
 import co.cask.cdap.api.annotation.Name;
 import co.cask.cdap.api.annotation.Plugin;
 import co.cask.cdap.api.plugin.PluginConfig;
@@ -81,10 +82,12 @@ public final class Conditional extends Condition {
   @Override
   public void configurePipeline(PipelineConfigurer configurer) throws IllegalArgumentException {
     super.configurePipeline(configurer);
-    try {
-      el.compile(config.getExpression());
-    } catch (ELException e) {
-      throw new IllegalArgumentException(e.getMessage());
+    if(!config.containsMacro("expression")) {
+      try {
+        el.compile(config.getExpression());
+      } catch (ELException e) {
+        throw new IllegalArgumentException(e.getMessage());
+      }
     }
   }
 
@@ -98,7 +101,6 @@ public final class Conditional extends Condition {
    */
   @Override
   public boolean apply(ConditionContext context) throws Exception {
-    // Compile
     try {
       el.compile(config.getExpression());
     } catch (ELException e) {
@@ -159,6 +161,7 @@ public final class Conditional extends Condition {
    */
   public static final class ConditionConfig extends PluginConfig {
     @Name("expression")
+    @Macro
     private final String expression;
 
     public ConditionConfig(String expression) {

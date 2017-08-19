@@ -144,6 +144,42 @@ public final class Global {
   }
 
   /**
+   * Returns the length of the string.
+   *
+   * @param str for which we need to determine the length.
+   * @return length of string if not null, 0 otherwise.
+   */
+  public static int strlen(String str) {
+    if (str != null) {
+      return str.length();
+    }
+    return 0;
+  }
+
+  /**
+   * Checks if the object is null.
+   *
+   * @param object to be checked for null.
+   * @return true if
+   */
+  public static boolean isnull(Object object) {
+    return object == null ? true : false;
+  }
+
+  /**
+   * Checks if the string is empty or not.
+   *
+   * @param str to be checked for empty.
+   * @return true if not null and empty, else false.
+   */
+  public static boolean isempty(String str) {
+    if (str != null && str.isEmpty()) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Formats the string in way similar to String format.
    *
    * @param str format of string.
