@@ -7,7 +7,7 @@ A control flow plugin that allows conditional execution within pipelines. The co
 
 Condition plugin specifies a boolean expression to be evaluated. During pipeline execution, the condition expression specified is evaluated resulting in boolean value (either `true` or `false`). Depending on the result of evaluation, either the downstream pipeline connected along `true` path is executed or along the `false` path is executed. At at point in time, only one path is executed. 
 
-Read more about how to specify expression [here](https://github.com/hydrator/condition-plugins/wiki)
+**Read more about how to specify expression** [here](https://github.com/hydrator/condition-plugins/wiki)
 
 ## Contact
 
