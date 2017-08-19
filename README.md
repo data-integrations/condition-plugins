@@ -12,12 +12,29 @@ Conditions are specifed as boolean expression. A Boolean expression is a logical
 
 ```
  runtime['filepath'] =~ ".*input_.*"
+```
+```
  runtime['a'] > runtime['b']
+```
+```
  token['File']['output'] > runtime['count']
- token['Data Quality']['error'] <= runtime['max_error']
- (token['File']['output'] > runtime['count']) and (runtime['a'] > runtime['b'])
+``` 
+```
+token['Data Quality']['error'] <= runtime['max_error']
+```
+```
+(token['File']['output'] > runtime['count']) and (runtime['a'] > runtime['b'])
+```
+```
  (token['File']['output'] > runtime['count']) || (runtime['a'] > runtime['b'])
+```
+```
  token['File']['output'] < runtime['count'] && token['File']['error'] < 1
+```
+```
+ !isnull(runtime['value']) && runtime['count'] && token['File']['error'] < 1
+```
+```
  math:max(toDouble(token['File1']['output']), toDouble(token['File2']['output'])) > runtime[$variable]
 ```
 
@@ -25,14 +42,48 @@ Conditions are specifed as boolean expression. A Boolean expression is a logical
 
 Following are the boolean operators that can be used within the boolean expression specifying the condition
 
-#### Boolean `and`, `&`
-The usual `&&` operator can be used as well as the word and, e.g.
+#### Boolean `and` or `&`
+The operator `&&` can be used as well as the word `and` to specify composing conditions, e.g.
 ```
 cond1 and cond2
+```
 and
+```
 cond1 && cond2
 ```
-are equivalent
+
+#### Boolean `or` or `||`
+
+The operator `||` can be used as well as the word `or` to specify composing conditions, e.g.
+```
+cond1 or cond2
+```
+and
+```
+cond1 || cond2
+```
+
+#### Boolean `not` or `!`
+
+The operator `!` can be used as well as the word `not` to specify composing conditions, e.g.
+```
+!cond
+```
+and
+```
+not cond
+```
+
+#### Bitwise `&`
+
+The bitwise operator `&` is used as follows
+```
+!cond
+```
+and
+```
+not cond
+```
 
 ### Variables
 
@@ -43,3 +94,6 @@ In the conditional expression, there are three types of `map` variables availabl
 * **Global Variables** (E.g. `global['pipeline'|'namespace'|'logical_start_time'|'plugin']`)
 
 ### Macros
+
+## Transient Dataset
+
