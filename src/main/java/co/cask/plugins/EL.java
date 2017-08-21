@@ -31,7 +31,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This class <code>EL</code> is a Expression Language Handler.
+ * This class <code>EL</code> is a Expression Language compiler and executor that wraps
+ * Apache Commons JEXL.
+ *
+ * <p>This class exposes methods for compiling an expression, executing
+ * the expression given context variables, retrieves variables specified in the expression
+ * upon compilation.</p>
  */
 public final class EL {
   private static final Logger LOG = LoggerFactory.getLogger(EL.class);
@@ -49,6 +54,11 @@ public final class EL {
       .create();
   }
 
+  /**
+   * Compiles an expression provided. <p></p>
+   * @param expression
+   * @throws ELException
+   */
   public void compile(String expression) throws ELException {
     variables.clear();
     try {

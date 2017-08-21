@@ -119,7 +119,6 @@
             <target>1.7</target>
           </configuration>
         </plugin>
-
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
@@ -157,7 +156,6 @@
             </execution>
           </executions>
         </plugin>
-
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
@@ -189,8 +187,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
-
     <plugins>
       <plugin>
         <groupId>org.apache.rat</groupId>
@@ -207,7 +203,29 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>2.3.7</version>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Embed-Dependency>*;inline=false;scope=compile</Embed-Dependency>
+            <Embed-Transitive>true</Embed-Transitive>
+            <Embed-Directory>lib</Embed-Directory>
+            <!--Only @Plugin classes in the export packages will be included as plugin-->
+            <_exportcontents>co.cask.plugins.*</_exportcontents>
+          </instructions>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>bundle</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>co.cask</groupId>
         <artifactId>cdap-maven-plugin</artifactId>
