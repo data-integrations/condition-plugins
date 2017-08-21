@@ -9,9 +9,9 @@ Condition plugin specifies a boolean expression to be evaluated. During pipeline
 
 **Read more about how to specify expression** [here](https://github.com/hydrator/condition-plugins/wiki)
 
-## Contact
+# Contact
 
-### Mailing Lists
+## Mailing Lists
 
 CDAP User Group and Development Discussions:
 
@@ -22,16 +22,12 @@ applications or building plugins for appplications. You can expect questions fro
 users, release announcements, and any other discussions that we think will be helpful
 to the users.
 
-### IRC Channel
-
-CDAP IRC Channel: [#cdap on irc.freenode.net](http://webchat.freenode.net?channels=%23cdap)
-
-### Slack Team
+## Slack Team
 
 CDAP Users on Slack: [cdap-users team](https://cdap-users.herokuapp.com)
 
 
-## License and Trademarks
+# License and Trademarks
 
 Copyright © 2016-2017 Cask Data, Inc.
 
