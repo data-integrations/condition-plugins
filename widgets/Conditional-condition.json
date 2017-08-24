@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "spec-version": "1.3"
+  },
+  "configuration-groups": [
+    {
+      "label": "Conditional",
+      "properties": [
+        {
+          "widget-type": "textarea",
+          "label": "Expression",
+          "name": "expression",
+          "widget-attributes" : {
+            "placeholder": "E.g. ((token['Data Quality']['error'] / token['File']['output']) * 100) > runtime['error_percentage'] "
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": [
+  ]
+}
