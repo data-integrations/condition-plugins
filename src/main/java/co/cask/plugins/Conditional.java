@@ -25,12 +25,15 @@ import co.cask.cdap.etl.api.PipelineConfigurer;
 import co.cask.cdap.etl.api.condition.Condition;
 import co.cask.cdap.etl.api.condition.ConditionContext;
 import co.cask.cdap.etl.api.condition.StageStatistics;
-import com.google.common.base.Joiner;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.ws.rs.Path;
 
 /**
  * This class <code>Conditional</code> implements the condition plugin, where
@@ -55,6 +58,7 @@ import java.util.Set;
 @Plugin(type = Condition.PLUGIN_TYPE)
 @Name("Conditional")
 public final class Conditional extends Condition {
+  private static final Logger LOG = LoggerFactory.getLogger(Conditional.class);
   private ConditionConfig config;
 
   /**
@@ -122,7 +126,8 @@ public final class Conditional extends Condition {
             String.format("Condition includes a runtime argument '%s' that does not exist.", variable.get(1))
           );
         }
-        runtime.put(Joiner.on(".").join(variable), arguments.get(variable.get(1)));
+
+        runtime.put(variable.get(1), arguments.get(variable.get(1)));
       } else if (type.contentEquals("token")) {
         String stage = variable.get(1);
         if (!statistics.containsKey(stage)) {
@@ -133,8 +138,8 @@ public final class Conditional extends Condition {
         StageStatistics stageStatistics = statistics.get(stage);
         Map<String, Object> stats = new HashMap<>();
         stats.put("input", stageStatistics.getInputRecordsCount());
-        stats.put("output", stageStatistics.getErrorRecordsCount());
-        stats.put("error", stageStatistics.getOutputRecordsCount());
+        stats.put("output", stageStatistics.getOutputRecordsCount());
+        stats.put("error", stageStatistics.getErrorRecordsCount());
         tokens.put(stage, stats);
       } else if (type.contentEquals("global")) {
         globals.put("pipeline", context.getPipelineName());
@@ -143,8 +148,8 @@ public final class Conditional extends Condition {
         globals.put("plugin", context.getStageName());
       } else {
         throw new Exception(
-          String.format("Invalid map variable '%s' specified. Valid map variables " +
-                          "'runtime', 'token' and 'global'", type)
+          String.format("Invalid map variable '%s' specified. Valid map variables are " +
+                          "'runtime', 'token' and 'global'.", type)
         );
       }
     }

@@ -65,8 +65,10 @@ public final class EL {
       script = engine.createScript(expression);
       variables = script.getVariables();
       for (List<String> vars : variables) {
-        if (!vars.get(0).contentEquals("token") && !vars.get(0).contentEquals("runtime")) {
-          throw new ELException("Condition can only specify either 'token' or 'runtime' in expression.");
+        if (!vars.get(0).contentEquals("token")
+          && !vars.get(0).contentEquals("runtime")
+          && !vars.get(0).contentEquals("global")) {
+          throw new ELException("Condition can only specify either 'token', 'runtime', or 'global' in an expression.");
         }
         if (vars.get(0).equalsIgnoreCase("token")) {
           if (vars.size() != 3) {
@@ -81,7 +83,7 @@ public final class EL {
         }
         if (vars.get(0).equalsIgnoreCase("global")) {
           if (vars.size() != 2) {
-            throw new ELException("Incorrect 'global' access, a global is represented as runtime['<field-name>']");
+            throw new ELException("Incorrect 'global' access, a global is represented as global['<field-name>']");
           }
         }
       }
