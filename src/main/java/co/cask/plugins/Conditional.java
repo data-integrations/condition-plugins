@@ -16,6 +16,7 @@
 
 package co.cask.plugins;
 
+import co.cask.cdap.api.annotation.Description;
 import co.cask.cdap.api.annotation.Macro;
 import co.cask.cdap.api.annotation.Name;
 import co.cask.cdap.api.annotation.Plugin;
@@ -58,6 +59,7 @@ import javax.ws.rs.Path;
  */
 @Plugin(type = Condition.PLUGIN_TYPE)
 @Name("Conditional")
+@Description("Controls the execution of the pipeline based on the jexl expression.")
 public final class Conditional extends Condition {
   private static final Logger LOG = LoggerFactory.getLogger(Conditional.class);
   private ConditionConfig config;
