@@ -76,6 +76,13 @@
     </repository>
   </repositories>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>sonatype</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <dependencies>
     <dependency>
       <groupId>co.cask.cdap</groupId>
