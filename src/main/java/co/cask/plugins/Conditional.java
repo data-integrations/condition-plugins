@@ -19,6 +19,7 @@ package co.cask.plugins;
 import co.cask.cdap.api.annotation.Macro;
 import co.cask.cdap.api.annotation.Name;
 import co.cask.cdap.api.annotation.Plugin;
+import co.cask.cdap.api.plugin.EndpointPluginContext;
 import co.cask.cdap.api.plugin.PluginConfig;
 import co.cask.cdap.etl.api.Arguments;
 import co.cask.cdap.etl.api.PipelineConfigurer;
@@ -176,6 +177,23 @@ public final class Conditional extends Condition {
 
     public String getExpression() {
       return expression;
+    }
+  }
+
+  /**
+   * Request for validating the expression.
+   */
+  class ValidateRequest {
+    public String expression;
+  }
+
+  @Path("validate")
+  public boolean validate(ValidateRequest request, EndpointPluginContext pluginContext) {
+    try {
+      el.compile(request.expression);
+      return true;
+    } catch (ELException e) {
+      throw new IllegalArgumentException(e.getMessage());
     }
   }
 }
