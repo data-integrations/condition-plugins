@@ -170,6 +170,11 @@ public final class Conditional extends Condition {
    */
   public static final class ConditionConfig extends PluginConfig {
     @Name("expression")
+    @Description("The conditions are specified as jexl expressions and the variables for " +
+      "expression can include values specified as runtime arguments of the pipeline, token " +
+      "from plugins prior to the condition and global that includes global information about " +
+      "pipeline like pipeline name, logical start time. Example: ((token['Data Quality']['error'] " +
+      "/ token['File']['output']) * 100) > runtime['error_percentage']")
     @Macro
     private final String expression;
 
