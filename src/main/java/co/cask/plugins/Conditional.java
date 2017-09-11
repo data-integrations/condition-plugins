@@ -16,9 +16,11 @@
 
 package co.cask.plugins;
 
+import co.cask.cdap.api.annotation.Description;
 import co.cask.cdap.api.annotation.Macro;
 import co.cask.cdap.api.annotation.Name;
 import co.cask.cdap.api.annotation.Plugin;
+import co.cask.cdap.api.plugin.EndpointPluginContext;
 import co.cask.cdap.api.plugin.PluginConfig;
 import co.cask.cdap.etl.api.Arguments;
 import co.cask.cdap.etl.api.PipelineConfigurer;
@@ -57,6 +59,7 @@ import javax.ws.rs.Path;
  */
 @Plugin(type = Condition.PLUGIN_TYPE)
 @Name("Conditional")
+@Description("Controls the execution of the pipeline based on the jexl expression.")
 public final class Conditional extends Condition {
   private static final Logger LOG = LoggerFactory.getLogger(Conditional.class);
   private ConditionConfig config;
@@ -167,6 +170,11 @@ public final class Conditional extends Condition {
    */
   public static final class ConditionConfig extends PluginConfig {
     @Name("expression")
+    @Description("The conditions are specified as jexl expressions and the variables for " +
+      "expression can include values specified as runtime arguments of the pipeline, token " +
+      "from plugins prior to the condition and global that includes global information about " +
+      "pipeline like pipeline name, logical start time. Example: ((token['Data Quality']['error'] " +
+      "/ token['File']['output']) * 100) > runtime['error_percentage']")
     @Macro
     private final String expression;
 
@@ -176,6 +184,23 @@ public final class Conditional extends Condition {
 
     public String getExpression() {
       return expression;
+    }
+  }
+
+  /**
+   * Request for validating the expression.
+   */
+  class ValidateRequest {
+    public String expression;
+  }
+
+  @Path("validate")
+  public boolean validate(ValidateRequest request, EndpointPluginContext pluginContext) {
+    try {
+      el.compile(request.expression);
+      return true;
+    } catch (ELException e) {
+      throw new IllegalArgumentException(e.getMessage());
     }
   }
 }
