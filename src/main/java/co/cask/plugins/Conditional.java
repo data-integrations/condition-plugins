@@ -28,6 +28,7 @@ import co.cask.cdap.etl.api.condition.Condition;
 import co.cask.cdap.etl.api.condition.ConditionContext;
 import co.cask.cdap.etl.api.condition.StageStatistics;
 
+import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +64,10 @@ import javax.ws.rs.Path;
 public final class Conditional extends Condition {
   private static final Logger LOG = LoggerFactory.getLogger(Conditional.class);
   private ConditionConfig config;
+
+  static {
+    LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SLF4JLog");
+  }
 
   /**
    * Create a expression handler by registering functions
