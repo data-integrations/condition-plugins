@@ -22,7 +22,7 @@
 
   <groupId>co.cask.plugins</groupId>
   <artifactId>condition-plugins</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.4</version>
   <name>Condition Plugin</name>
   <description>A plugin for making control flow decision within a pipeline</description>
   <packaging>jar</packaging>
@@ -63,6 +63,7 @@
     <junit.version>4.11</junit.version>
     <guava.version>13.0.1</guava.version>
     <commons-jexl.version>3.0</commons-jexl.version>
+    <slf4j.version>1.7.5</slf4j.version>
   </properties>
 
   <repositories>
@@ -84,6 +85,26 @@
   </pluginRepositories>
 
   <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
     <dependency>
       <groupId>co.cask.cdap</groupId>
       <artifactId>cdap-api</artifactId>

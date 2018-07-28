@@ -28,6 +28,7 @@ import co.cask.cdap.etl.api.condition.Condition;
 import co.cask.cdap.etl.api.condition.ConditionContext;
 import co.cask.cdap.etl.api.condition.StageStatistics;
 
+import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +64,10 @@ import javax.ws.rs.Path;
 public final class Conditional extends Condition {
   private static final Logger LOG = LoggerFactory.getLogger(Conditional.class);
   private ConditionConfig config;
+
+  static {
+    LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SLF4JLog");
+  }
 
   /**
    * Create a expression handler by registering functions
@@ -133,16 +138,19 @@ public final class Conditional extends Condition {
         runtime.put(variable.get(1), arguments.get(variable.get(1)));
       } else if (type.contentEquals("token")) {
         String stage = variable.get(1);
-        if (!statistics.containsKey(stage)) {
-          throw new Exception(
-            String.format("Condition includes a token for plugin '%s' that doesn't exist.", stage)
-          );
-        }
-        StageStatistics stageStatistics = statistics.get(stage);
         Map<String, Object> stats = new HashMap<>();
-        stats.put("input", stageStatistics.getInputRecordsCount());
-        stats.put("output", stageStatistics.getOutputRecordsCount());
-        stats.put("error", stageStatistics.getErrorRecordsCount());
+        StageStatistics stageStatistics = statistics.get(stage);
+        if (stageStatistics == null) {
+          // Statistics for the stage are unavailable possibly because the stage did not receive/emitted any record
+          // or stage does not exists
+          stats.put("input", 0);
+          stats.put("output", 0);
+          stats.put("error", 0);
+        } else {
+          stats.put("input", stageStatistics.getInputRecordsCount());
+          stats.put("output", stageStatistics.getOutputRecordsCount());
+          stats.put("error", stageStatistics.getErrorRecordsCount());
+        }
         tokens.put(stage, stats);
       } else if (type.contentEquals("global")) {
         globals.put("pipeline", context.getPipelineName());
