@@ -22,7 +22,7 @@
 
   <groupId>co.cask.plugins</groupId>
   <artifactId>condition-plugins</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <name>Condition Plugin</name>
   <description>A plugin for making control flow decision within a pipeline</description>
   <packaging>jar</packaging>
@@ -59,7 +59,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <cdap.version>4.3.4</cdap.version>
+    <cdap.version>4.3.5</cdap.version>
     <junit.version>4.11</junit.version>
     <guava.version>13.0.1</guava.version>
     <commons-jexl.version>3.0</commons-jexl.version>
