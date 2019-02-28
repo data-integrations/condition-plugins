@@ -20,23 +20,19 @@ import co.cask.cdap.api.annotation.Description;
 import co.cask.cdap.api.annotation.Macro;
 import co.cask.cdap.api.annotation.Name;
 import co.cask.cdap.api.annotation.Plugin;
-import co.cask.cdap.api.plugin.EndpointPluginContext;
 import co.cask.cdap.api.plugin.PluginConfig;
 import co.cask.cdap.etl.api.Arguments;
 import co.cask.cdap.etl.api.PipelineConfigurer;
 import co.cask.cdap.etl.api.condition.Condition;
 import co.cask.cdap.etl.api.condition.ConditionContext;
 import co.cask.cdap.etl.api.condition.StageStatistics;
-
+import co.cask.cdap.etl.api.validation.InvalidConfigPropertyException;
 import org.apache.commons.logging.LogFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.ws.rs.Path;
 
 /**
  * This class <code>Conditional</code> implements the condition plugin, where
@@ -62,7 +58,6 @@ import javax.ws.rs.Path;
 @Name("Conditional")
 @Description("Controls the execution of the pipeline based on the jexl expression.")
 public final class Conditional extends Condition {
-  private static final Logger LOG = LoggerFactory.getLogger(Conditional.class);
   private ConditionConfig config;
 
   static {
@@ -73,14 +68,11 @@ public final class Conditional extends Condition {
    * Create a expression handler by registering functions
    * that can be used within the expression.
    */
-  private final EL el = new EL(new ELRegistration() {
-    @Override
-    public Map<String, Object> functions() {
-      Map<String, Object> functions = new HashMap<>();
-      functions.put(null, Global.class);
-      functions.put("math", Math.class);
-      return functions;
-    }
+  private final EL el = new EL(() -> {
+    Map<String, Object> functions = new HashMap<>();
+    functions.put(null, Global.class);
+    functions.put("math", Math.class);
+    return functions;
   });
 
   /**
@@ -98,7 +90,7 @@ public final class Conditional extends Condition {
       try {
         el.compile(config.getExpression());
       } catch (ELException e) {
-        throw new IllegalArgumentException(e.getMessage());
+        throw new InvalidConfigPropertyException(e.getMessage(), e, ConditionConfig.EXPRESSION);
       }
     }
   }
@@ -177,7 +169,9 @@ public final class Conditional extends Condition {
    * Configuration for this plugin.
    */
   public static final class ConditionConfig extends PluginConfig {
-    @Name("expression")
+    static final String EXPRESSION = "expression";
+
+    @Name(EXPRESSION)
     @Description("The conditions are specified as jexl expressions and the variables for " +
       "expression can include values specified as runtime arguments of the pipeline, token " +
       "from plugins prior to the condition and global that includes global information about " +
@@ -190,26 +184,10 @@ public final class Conditional extends Condition {
       this.expression = expression;
     }
 
-    public String getExpression() {
+    String getExpression() {
       return expression;
     }
   }
 
-  /**
-   * Request for validating the expression.
-   */
-  class ValidateRequest {
-    public String expression;
-  }
-
-  @Path("validate")
-  public boolean validate(ValidateRequest request, EndpointPluginContext pluginContext) {
-    try {
-      el.compile(request.expression);
-      return true;
-    } catch (ELException e) {
-      throw new IllegalArgumentException(e.getMessage());
-    }
-  }
 }
 
