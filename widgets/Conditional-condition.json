@@ -7,14 +7,11 @@
       "label": "Conditional",
       "properties": [
         {
-          "widget-type": "textarea-validate",
+          "widget-type": "textarea",
           "label": "Expression",
           "name": "expression",
           "widget-attributes" : {
-            "placeholder": "E.g. ((token['Data Quality']['error'] / token['File']['output']) * 100) > runtime['error_percentage']",
-            "validate-endpoint": "validate",
-            "validate-button-text": "Validate",
-            "validate-success-message": "Expression is valid"
+            "placeholder": "E.g. ((token['Data Quality']['error'] / token['File']['output']) * 100) > runtime['error_percentage']"
           }
         }
       ]
