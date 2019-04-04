@@ -14,7 +14,7 @@
  * the License.
  */
 
-package co.cask.plugins;
+package io.cdap.plugin.condition;
 
 import org.apache.commons.jexl3.JexlContext;
 

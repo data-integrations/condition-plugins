@@ -14,13 +14,13 @@
  * the License.
  */
 
-package co.cask.plugins;
-
-import java.util.Map;
+package io.cdap.plugin.condition;
 
 /**
  * Class description here.
  */
-public interface ELRegistration {
-  Map<String, Object> functions();
+public class ELException extends Exception {
+  public ELException(String message) {
+    super(message);
+  }
 }

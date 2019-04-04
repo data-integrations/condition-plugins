@@ -14,19 +14,19 @@
  * the License.
  */
 
-package co.cask.plugins;
+package io.cdap.plugin.condition;
 
-import co.cask.cdap.api.annotation.Description;
-import co.cask.cdap.api.annotation.Macro;
-import co.cask.cdap.api.annotation.Name;
-import co.cask.cdap.api.annotation.Plugin;
-import co.cask.cdap.api.plugin.PluginConfig;
-import co.cask.cdap.etl.api.Arguments;
-import co.cask.cdap.etl.api.PipelineConfigurer;
-import co.cask.cdap.etl.api.condition.Condition;
-import co.cask.cdap.etl.api.condition.ConditionContext;
-import co.cask.cdap.etl.api.condition.StageStatistics;
-import co.cask.cdap.etl.api.validation.InvalidConfigPropertyException;
+import io.cdap.cdap.api.annotation.Description;
+import io.cdap.cdap.api.annotation.Macro;
+import io.cdap.cdap.api.annotation.Name;
+import io.cdap.cdap.api.annotation.Plugin;
+import io.cdap.cdap.api.plugin.PluginConfig;
+import io.cdap.cdap.etl.api.Arguments;
+import io.cdap.cdap.etl.api.PipelineConfigurer;
+import io.cdap.cdap.etl.api.condition.Condition;
+import io.cdap.cdap.etl.api.condition.ConditionContext;
+import io.cdap.cdap.etl.api.condition.StageStatistics;
+import io.cdap.cdap.etl.api.validation.InvalidConfigPropertyException;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.HashMap;

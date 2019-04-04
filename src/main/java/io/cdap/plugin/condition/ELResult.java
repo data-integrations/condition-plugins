@@ -14,7 +14,7 @@
  * the License.
  */
 
-package co.cask.plugins;
+package io.cdap.plugin.condition;
 
 /**
  * Class description here.
