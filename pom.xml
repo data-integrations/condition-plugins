@@ -74,7 +74,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <cdap.version>6.0.0-SNAPSHOT</cdap.version>
+    <cdap.version>6.0.0</cdap.version>
     <junit.version>4.11</junit.version>
     <guava.version>13.0.1</guava.version>
     <commons-jexl.version>3.0</commons-jexl.version>
@@ -271,7 +271,7 @@
         <version>1.1.0</version>
         <configuration>
           <cdapArtifacts>
-            <parent>system:cdap-data-pipeline[5.0.0-SNAPSHOT,9.0.0-SNAPSHOT)</parent>
+            <parent>system:cdap-data-pipeline[6.0.0,9.0.0-SNAPSHOT)</parent>
           </cdapArtifacts>
         </configuration>
         <executions>
