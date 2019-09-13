@@ -16,12 +16,14 @@
 
 package io.cdap.plugin.condition;
 
+import com.google.common.base.Strings;
 import io.cdap.cdap.api.annotation.Description;
 import io.cdap.cdap.api.annotation.Macro;
 import io.cdap.cdap.api.annotation.Name;
 import io.cdap.cdap.api.annotation.Plugin;
 import io.cdap.cdap.api.plugin.PluginConfig;
 import io.cdap.cdap.etl.api.Arguments;
+import io.cdap.cdap.etl.api.FailureCollector;
 import io.cdap.cdap.etl.api.PipelineConfigurer;
 import io.cdap.cdap.etl.api.condition.Condition;
 import io.cdap.cdap.etl.api.condition.ConditionContext;
@@ -86,13 +88,9 @@ public final class Conditional extends Condition {
   @Override
   public void configurePipeline(PipelineConfigurer configurer) throws IllegalArgumentException {
     super.configurePipeline(configurer);
-    if (!config.containsMacro("expression")) {
-      try {
-        el.compile(config.getExpression());
-      } catch (ELException e) {
-        throw new InvalidConfigPropertyException(e.getMessage(), e, ConditionConfig.EXPRESSION);
-      }
-    }
+    FailureCollector collector = configurer.getStageConfigurer().getFailureCollector();
+    config.validate(el, collector);
+
   }
 
   /**
@@ -105,11 +103,9 @@ public final class Conditional extends Condition {
    */
   @Override
   public boolean apply(ConditionContext context) throws Exception {
-    try {
-      el.compile(config.getExpression());
-    } catch (ELException e) {
-      throw new Exception(e.getMessage());
-    }
+    FailureCollector collector = context.getFailureCollector();
+    config.validate(el, collector);
+    collector.getOrThrowException();
 
     Set<List<String>> variables = el.variables();
     Arguments arguments = context.getArguments();
@@ -187,7 +183,17 @@ public final class Conditional extends Condition {
     String getExpression() {
       return expression;
     }
-  }
 
+    public void validate(EL el, FailureCollector collector) {
+      if (!containsMacro("expression") && !Strings.isNullOrEmpty(expression)) {
+        try {
+          el.compile(expression);
+        } catch (ELException e) {
+          collector.addFailure(String.format("Error encountered while compiling the expression : %s",
+                                             e.getMessage()), null).withConfigProperty(ConditionConfig.EXPRESSION);
+        }
+      }
+    }
+  }
 }
 
