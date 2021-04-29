@@ -50,7 +50,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
-        run: mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -fae -T 2 -B -V -Dmaven.repo.local=${{ env.HOME }}/.m2/repository11 -DcloudBuild -Dmaven.wagon.http.retryHandler.count=3 -Dmaven.wagon.httpconnectionManager.ttlSeconds=25
+        run: mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -fae -T 2 -B -V -Dmaven.repo.local=$HOME/.m2/repository11 -DcloudBuild -Dmaven.wagon.http.retryHandler.count=3 -Dmaven.wagon.httpconnectionManager.ttlSeconds=25
       - name: Archive build artifacts
         uses: actions/upload-artifact@v2.2.2
         if: always()
