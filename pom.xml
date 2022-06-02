@@ -22,7 +22,7 @@
 
   <groupId>io.cdap.plugin</groupId>
   <artifactId>condition-plugins</artifactId>
-  <version>1.10.0-SNAPSHOT</version>
+  <version>1.10.0</version>
   <name>Condition Plugin</name>
   <description>A plugin for making control flow decision within a pipeline</description>
   <packaging>jar</packaging>
