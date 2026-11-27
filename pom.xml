@@ -22,7 +22,7 @@
 
   <groupId>io.cdap.plugin</groupId>
   <artifactId>condition-plugins</artifactId>
-  <version>1.14.0</version>
+  <version>1.14.1-SNAPSHOT</version>
   <name>Condition Plugin</name>
   <description>A plugin for making control flow decision within a pipeline</description>
   <packaging>jar</packaging>
@@ -65,7 +65,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <cdap.version>6.9.0</cdap.version>
     <junit.version>4.11</junit.version>
-    <guava.version>13.0.1</guava.version>
+    <guava.version>33.8.0-jre</guava.version>
     <commons-jexl.version>3.0</commons-jexl.version>
     <slf4j.version>1.7.5</slf4j.version>
 
@@ -251,7 +251,7 @@
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>5.1.9</version>
         <extensions>true</extensions>
         <configuration>
           <instructions>
